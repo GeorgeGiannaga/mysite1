@@ -1,0 +1,55 @@
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time is Here!!</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+<p>
+    {% if not user.is_anonymous %}
+        <font color="#00ccff">
+            Welcome {{ user }}
+        </font>
+    {% endif %}
+</p>
+    <nav>
+        <div class="container nav-wrapper">
+            <ul id="nav1" class="right">
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+            <a href="/" class="brand-logo">WE KNOW THE TIME EVERYWHERE</a>
+            <ul id="nav-mobile" class="right">
+                <li><a href="/home">Home</a></li>
+            </ul>
+            <ul id="nav" class="right">
+                <li><a href="/properties">Properties</a></li>
+            </ul>
+        </div>
+    </nav>
+<div class="container">
+    <h2 style="text-align: center">What place in the world do you wanna know what time it is?</h2>
+</div>
+    <form method = "POST"  action="{% url 'new_search' %}">
+            {% csrf_token %}
+            <input type="text" name = "search" placeholder="search">
+            <input type = "submit" name ="submit">
+    </form>
+        {% block content %}
+
+        {% endblock content %}
+    {% if messages %}
+    {% for message in messages %}
+        <h2 style = "color:blue">{{message}}</h2>
+    {% endfor %}
+    {% endif %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

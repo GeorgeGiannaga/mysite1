@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Here you can add your property for sale</title>
+</head>
+<body>
+<form  method='POST'>
+
+    {% csrf_token %}
+  <div class="container">
+
+    <h1>Property form</h1>
+    <p>Please fill in this form to add your house for sale.</p>
+    <hr>
+      <label for="Lastname"><b>Last name</b></label>
+      <input type="text" placeholder="Enter your last name" name=Last_name id="Lastname" required>
+
+      <label for="Firstname"><b>First name</b></label>
+
+      <input type="text" placeholder="Enter your first name" name="First_name" id=Firstname required>
+      <label for="country"><b>Country</b></label>
+
+      <input type="text" placeholder="Enter your country's name" name=Country id="country" required>
+      <label for="city"><b>City</b></label>
+
+      <input type="text" placeholder="Enter your city's name" name=City id="city" required>
+      <label for="address"><b>Address</b></label>
+
+      <input type="text" placeholder="Enter your property's address" name=Address id="address" required>
+
+      <label for="desc"><b>Description</b></label>
+
+      <textarea name="Description" cols="50" rows="10" id = "desc" ></textarea>
+
+    <hr>
+    <button type="submit" class="submit-row"> Submit</button>
+      {% if messages %}
+      {% for message in messages %}
+        <h2 style = "color:blue">{{message}}</h2>
+      {% endfor %}
+      {% endif %}
+
+  </div>
+
+</form>
+<form method="get" action="{% url 'pdfile'%}">
+    {% csrf_token %}
+   <button type="submit">Download your properties</button>
+  </form>
+<button onclick="location.href = '/properviews';" type="submit">Modify your properties</button>
+<button onclick="location.href = '/home';" class="cancelbtn" >Back</button>
+
+</body>
+
+
+</html>

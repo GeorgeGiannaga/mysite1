@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Properties</title>
+    <style>
+        th,td{
+        padding:3px;
+        }
+        th{
+        background-color:black;
+        color:white;
+        }
+        table {
+  counter-reset: rowNumber;
+}
+
+table tr::before {
+  display: table-cell;
+  counter-increment: rowNumber;
+  content: counter(rowNumber) ".";
+  padding-right: 0.3em;
+  text-align: right;
+}</style>
+
+</head>
+<body>
+
+        <center><div style="align-content: center">
+          <h3>These are your properties currently for sale!!!</h3>
+        </div>
+        </center>
+        <center>
+
+
+<table class="table" border="1">
+                    <tr>
+                        <th>Last name</th>
+                        <th>First name</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Address</th>
+                        <th>Description</th>
+                    </tr>
+                    {% for property in properties %}
+                        <tr>
+                            <td>{{ property.Last_name }}</td>
+                            <td>{{ property.First_name }}</td>
+                            <td>{{ property.Country }}</td>
+                            <td>{{ property.City }}</td>
+                            <td>{{ property.Address }}</td>
+                            <td>{{ property.Description }}</td>
+                            <td>
+                                <a type = 'button' href = 'editproper/{{property.id}}'>Edit</a>
+                            </td>
+                            <td><form method = 'POST' onsubmit="return confirm('Are you sure you want to delete this property?')" action="/delete/{{property.id}}">{% csrf_token %}
+                                <button class ='submit-row'>Delete</button>
+                            </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+            </table>
+            </form>
+            <button onclick="location.href = '/properties';" class="cancelbtn" >Cancel</button>
+        </center>
+<div id="footer_content">
+</div>
+        <center>
+        {% if messages %}
+        {% for message in messages %}
+            <h2 style = "color:blue">{{message}}</h2>
+        {% endfor %}
+        {% endif %}
+        </center>
+</body>
+</html>

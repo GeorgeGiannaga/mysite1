@@ -1,0 +1,34 @@
+
+{% load static %}
+
+<form method="POST">
+
+{% csrf_token %}
+
+  <div class="imgcontainer">
+    <img src="https://queen.bbend.net/media/com_news/story/2020/06/01/199875/main/stikoudikaterin_101306771_585487655421876_7420099577158506691_n.jpg" alt="Avatar" class="avatar">
+  </div>
+<link rel="stylesheet" href="{% static 'login.css'%}">
+  <div class="container">
+    <label for="Username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="Username" id="Username" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" id="psw" required>
+
+    <button type="submit">Login</button>
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+  </div>
+    {% if messages %}
+    {% for message in messages %}
+    <h2 style = "color:blue">{{message}}</h2>
+    {% endfor %}
+    {% endif %}
+  <div class="container" style="background-color:#f1f1f1">
+      <button onclick="location.href = '/';" class="cancelbtn" >Cancel</button>
+    <span class="psw">Forgot your <a href="reset_password">password?</a></span>
+  </div>
+
+</form>
