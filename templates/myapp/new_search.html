@@ -1,5 +1,26 @@
+
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <h3 style = "text-align: center">{{search | title}}</h3>
+    <h3 style = "text-align: center">Properties in {{ search | title}} for sale!</h3>
+        <div class="row">
+            {% for property in properties %}
+
+            <div class="col s4">
+                <div class="card">
+                     <div class="card-image">
+                         <a><img src="{{media_url}}{{property.Image}}" class="img-responsive" alt="" width = "100%" height = "100%"></a>
+                     </div>
+                    <div class="card-content">
+                        <center><h5><a href="description/{{property.pk}}">{{property.Address}},{{property.City}}</a></h5></center>
+                        </div>
+                    <div class="card-action">
+                        <center><strong>{{property.Price}}€</strong></center>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+    </div>
 {% endblock content %}

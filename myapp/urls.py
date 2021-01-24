@@ -7,9 +7,9 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', views.register, name='register'),
+    path('register', views.register, name='register'),
     path('login', views.log_in, name='log_in'),
-    path('home', views.home, name='home'),
+    path('', views.home, name='home'),
     path('new_search', views.new_search, name='new_search'),
     path('properties', views.proper, name='proper'),
     path('logout', views.logoutuser, name='logoutuser'),
@@ -20,5 +20,12 @@ urlpatterns = [
     path('My_properties.pdf', views.render_pdf_view, name="pdfile"),
     path('properviews', views.ProperVeiw, name="properviews"),
     path('editproper/<int:id>', views.editproper, name = 'editproper'),
-    path('delete/<int:id>', views.deleteproper, name = 'delproper' )
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('delete/<int:id>', views.deleteproper, name = 'delproper' ),
+    path('description/<int:pk>', views.description, name = 'description'),
+    path('details', views.detailsave, name='details'),
+    path('viewdetails', views.ViewDetails, name='viewdetails'),
+    path('edetails/<int:id>', views.Edetails, name = 'edetails')
+]
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

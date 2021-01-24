@@ -7,3 +7,7 @@
     height: 250px; /* Your height here */
     overflow: hidden;
 }
+::placeholder {
+  color: red;
+  opacity: 1;
+}

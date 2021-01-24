@@ -15,7 +15,6 @@
         table {
   counter-reset: rowNumber;
 }
-
 table tr::before {
     display: table-cell;
     counter-increment: rowNumber;
@@ -37,6 +36,7 @@ table tr::before {
                         <th>Country</th>
                         <th>City</th>
                         <th>Address</th>
+                        <th>Price</th>
                         <th>Description</th>
                     </tr>
                     {% for property in properties %}
@@ -46,6 +46,7 @@ table tr::before {
                             <td>{{ property.Country }}</td>
                             <td>{{ property.City }}</td>
                             <td>{{ property.Address }}</td>
+                            <td>{{ property.Price }}</td>
                             <td>{{ property.Description }}</td>
                         </tr>
                     {% endfor %}

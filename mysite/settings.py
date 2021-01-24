@@ -22,7 +22,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&05c^96kp89kb+tspbl)'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'project',
         'USER': 'user',
-        'PASSWORD': '',
+        'PASSWORD': 'neverazor1980@',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
@@ -140,3 +140,4 @@ EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'georgecorp1234@gmail.com'
 EMAIL_HOST_PASSWORD = ''
+
