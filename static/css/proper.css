@@ -1,0 +1,40 @@
+th,td{ width: 100%;
+    padding:3px;
+
+}
+th{
+    background-color:black;
+    color:white;
+}
+input[type=text], input[type=number], textarea[type=text]{
+    width: 100%;
+  padding: 12px 20px;
+  margin: 5px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+
+}
+        button {
+  background-color: brown;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 60%;
+}
+        #col-1 {
+  position: relative;
+  width: 50%;
+  float: left;
+  height: 70%;
+  z-index: 1010101010
+}
+        #col-2 {
+  position: relative;
+  width: 50%;
+  float: left;
+  height: 70%;
+  z-index: 1010101010
+}
