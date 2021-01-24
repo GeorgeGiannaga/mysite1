@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Property's details!!</title>
+    <style>
+        th,td{
+        padding:3px;
+        }
+        th{
+        background-color:black;
+        color:white;
+        }
+        table {
+  counter-reset: rowNumber;
+}
+
+table tr::before {
+  display: table-cell;
+  counter-increment: rowNumber;
+  content: counter(rowNumber) ".";
+  padding-right: 0.3em;
+  text-align: right;
+}</style>
+
+</head>
+<body style="background-color:powderblue;">
+
+        <center>
+<form>
+<table class="table" border="1">
+                    <tr>
+                        <th>Address</th>
+                        <th>Floors</th>
+                        <th>Garden</th>
+                        <th>Furnised</th>
+                        <th>View</th>
+                        <th>Altitude</th>
+                        <th>Near places</th>
+                        <th>Number of Balconies</th>
+                        <th>Number of Windows</th>
+                        <th>Light</th>
+                    </tr>
+                    {% for property_id,value in context.items %}
+                        <tr>
+                            <td>{{ value.address }}</td>
+                            <td>{{ value.detail.Floors }}</td>
+                            <td>{{ value.detail.Garden }}</td>
+                            <td>{{ value.detail.Furnised }}</td>
+                            <td>{{ value.detail.View }}</td>
+                            <td>{{ value.detail.Altitude }}</td>
+                            <td>{{ value.detail.Near_places }}</td>
+                            <td>{{ value.detail.Balconies }}</td>
+                            <td>{{ value.detail.Windows }}</td>
+                            <td>{{ value.detail.Light }}</td>
+                            <td>
+                                <a href="edetails/{{property_id}}">Edit</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+            </table>
+            </form>
+            <button onclick="location.href = '/properties';" class="cancelbtn" >Cancel</button>
+        </center>
+<div id="footer_content">
+</div>
+        <center>
+        {% if messages %}
+        {% for message in messages %}
+            <h2 style = "color:blue">{{message}}</h2>
+        {% endfor %}
+        {% endif %}
+        </center>
+</body>
+</html>

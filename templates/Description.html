@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <style>
+img {
+  width: 100%;
+}
+</style>
+    <meta charset="UTF-8">
+    <title>Description</title>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvPJuDIjEpk7lAj9-ZYGgEDo483zjhDZM&callback=myMap" async defer></script>
+</head>
+<body>
+<div id="map" style="width:100%;height:150px;">
+    <script type="text/javascript">
+      var map;
+      function initMap() {
+          map = new google.maps.Map(document.getElementById("myMap"), {
+          center: {lat: 40, lng: 10},
+          zoom: 10
+          });
+      }
+</script>
+</div>
+<center><img src="{{media_url}}{{desc.Image}}" alt="" style="width:1000px;height:500px;"></center>
+<center><h2>{{desc.Description}}</h2>
+<table class="table" border="1">
+<tr>
+                        <th>Floors</th>
+                        <th>Garden</th>
+                        <th>Furnised</th>
+                        <th>View</th>
+                        <th>Altitude</th>
+                        <th>Near places</th>
+                        <th>Number of Balconies</th>
+                        <th>Number of Windows</th>
+                        <th>Light</th>
+</tr>
+    <tr>                <td>{{ detail.Floors }}</td>
+                            {% if detail.Garden %}<td>Yes</td>{% else %}<td>No</td>{% endif %}
+                            {% if detail.Furnised %}<td>Yes</td>{% else %}<td>No</td>{% endif %}
+                            <td>{{ detail.View }}</td>
+                            <td>{{ detail.Altitude }}</td>
+                            <td>{{ detail.Near_places }}</td>
+                            <td>{{ detail.Balconies }}</td>
+                            <td>{{ detail.Windows }}</td>
+                            {% if detail.Light %}<td>Yes</td>{% else %}<td>No</td>{% endif %}
+
+</table>
+</center>
+</body>
+</html>

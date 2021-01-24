@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Details</title>
+    <style>
+        th,td{
+        padding:3px;
+        }
+        th{
+        background-color:black;
+        color:white;
+        }
+        table {
+  counter-reset: rowNumber;
+}
+
+table tr::before {
+  display: table-cell;
+  counter-increment: rowNumber;
+  content: counter(rowNumber) ".";
+  padding-right: 0.3em;
+  text-align: right;
+}</style>
+</head>
+<body style="background-color:powderblue;">
+<center>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="prop">Choose a property:</label>
+        <select name="property_id" id="prop">
+            {% for property in properties %}
+            <option value="{{property.id}}">{{property.Address}}</option>
+            {% endfor %}
+        </select>
+
+<table class="table" border="1">
+                    <tr>
+                        <th>Floors</th>
+                        <th>Garden</th>
+                        <th>Furnised</th>
+                        <th>View</th>
+                        <th>Altitude</th>
+                        <th>Near places</th>
+                        <th>Number of Balconies</th>
+                        <th>Number of Windows</th>
+                        <th>Light</th>
+                    </tr>
+                        <tr>
+                            <td><label for="Floors"></label>
+                            <input type="number" name=Floors id="Floors" min = "0" required></td>
+                            <td><label for="Garden"></label>
+                            <input type="checkbox" name=Garden value="1" id="Garden"></td>
+                            <td><label for="Furniture"></label>
+                            <input type="checkbox" name=Furnised value="1" id="Furniture"></td>
+                            <td><label for="view"></label>
+                            <input type="text" name=View id="view" required></td>
+                            <td><label for="alt"></label>
+                            <input type="number" name=Altitude id="alt" min = "0" required></td>
+                            <td><label for="Nearpl"></label>
+                            <textarea name="Near_places" cols="50" rows="2" id = "Nearpl" required></textarea></td>
+                            <td><label for="balc"></label>
+                            <input type="number" name=Balconies id="balc" min = "0" required></td>
+                            <td><label for="wind"></label>
+                            <input type="number" name=Windows id="wind" min = "0" required></td>
+                            <td><label for="Li"></label>
+                            <input type="checkbox" name=Light value="1" id="Li"></td>
+                        </tr>
+            </table>
+        <button type="submit">Submit</button>
+            </form>
+            <button onclick="location.href = '/properties';" class="cancelbtn" >Cancel</button>
+            <button onclick="location.href = '/viewdetails';" class="cancelbtn" >Update your property's details here!</button>
+        </center>
+<div id="footer_content">
+</div>
+        <center>
+        {% if messages %}
+        {% for message in messages %}
+            <h2 style = "color:blue">{{message}}</h2>
+        {% endfor %}
+        {% endif %}
+        </center>
+</body>
+</html>

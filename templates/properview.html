@@ -16,7 +16,6 @@
         table {
   counter-reset: rowNumber;
 }
-
 table tr::before {
   display: table-cell;
   counter-increment: rowNumber;
@@ -26,15 +25,13 @@ table tr::before {
 }</style>
 
 </head>
-<body>
+<body style="background-color:powderblue;">
 
         <center><div style="align-content: center">
           <h3>These are your properties currently for sale!!!</h3>
         </div>
         </center>
         <center>
-
-
 <table class="table" border="1">
                     <tr>
                         <th>Last name</th>
@@ -42,6 +39,7 @@ table tr::before {
                         <th>Country</th>
                         <th>City</th>
                         <th>Address</th>
+                        <th>Price</th>
                         <th>Description</th>
                     </tr>
                     {% for property in properties %}
@@ -51,6 +49,7 @@ table tr::before {
                             <td>{{ property.Country }}</td>
                             <td>{{ property.City }}</td>
                             <td>{{ property.Address }}</td>
+                            <td>{{ property.Price }}</td>
                             <td>{{ property.Description }}</td>
                             <td>
                                 <a type = 'button' href = 'editproper/{{property.id}}'>Edit</a>
@@ -62,7 +61,6 @@ table tr::before {
                         </tr>
                     {% endfor %}
             </table>
-            </form>
             <button onclick="location.href = '/properties';" class="cancelbtn" >Cancel</button>
         </center>
 <div id="footer_content">
