@@ -23,6 +23,9 @@ class Property(models.Model):
     Description = models.CharField(max_length=200)
     Image = models.ImageField(upload_to='images/', null=True, blank=True)
     Price = models.FloatField(max_length=20, null=True, blank=True)
+    Area = models.IntegerField(null=True, blank=True)
+    Garages = models.IntegerField(null=True, blank=True)
+    Baths = models.IntegerField(null=True, blank=True)
     objects = models.Manager()
 
     def __str__(self):

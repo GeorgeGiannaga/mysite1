@@ -23,22 +23,26 @@ def home(request):
 
 
 def new_search(request):
-    search = request.POST.get('search')
-    properties = Property.objects.filter(City=search).all() or Property.objects.filter(Country=search).all()
-    details = Details.objects.all()
-    content = {
-        'details':details,
-        'search': search,
-        'properties': properties,
-        'media_url': settings.MEDIA_URL
-    }
-    return render(request, 'myapp/new_search.html', context=content)
+    if request.method == 'POST':
+        search = request.POST.get('search')
+        properties = Property.objects.filter(City=search).all() or Property.objects.filter(Country=search).all()
+        details = Details.objects.all()
+        content = {
+            'details':details,
+            'search': search,
+            'properties': properties,
+            'media_url': settings.MEDIA_URL
+        }
+        return render(request, 'myapp/new_search.html', context=content)
+    else:
+        return render(request, template_name='base.html')
+
 
 
 def geoloc(address= None):
     if address != None:
         try:
-            loc = geolocator.geocode(str(address))
+            loc = geolocator.geocode(address)
             return (loc.latitude, loc.longitude)
         except:
             return None
@@ -54,7 +58,7 @@ def register(request):
             if Password1 != Password2 and request.method == "POST":
                 messages.success(request, "The two passwords do not match, try again")
                 return render(request, "register/register.html")
-            User.objects.create_user(username = Username,email = email, password = Password1)
+            User.objects.create_user(username = Username,email = email, password=Password1)
             return redirect("log_in")
         except:
             messages.success(request, "Username or email is already being used by another user. Please try again with a different email/username")
@@ -86,8 +90,14 @@ def proper(request):
         post_code = request.POST.get("Post_Code")
         description = request.POST.get("Description")
         price = request.POST.get("Price")
+        area = request.POST.get("Area")
+        garages = request.POST.get("Garages")
+        baths = request.POST.get("Baths")
         image = request.FILES.get("Image")
-        new_property = Property(Last_name=last_name, First_name=first_name, Country=country, City=city, Address=address, Post_Code=post_code, Price=price, Description=description, Image = image, user=request.user)
+        new_property = Property(Last_name=last_name, First_name=first_name, Country=country, City=city,
+                                Address=address, Post_Code=post_code, Price=price, Description=description,
+                                Image = image, Area=area, Garages=garages, Baths=baths, user=request.user
+                                )
         if Property.objects.filter(user= request.user, Address = address).exists():
             messages.success(request, "We already have the attributes of this property, try update them instead")
         else:
@@ -136,8 +146,15 @@ def editproper(request, id):
         address = request.POST.get("Address")
         post_code = request.POST.get("Post_Code")
         price = request.POST.get("Price")
+        area = request.POST.get("Area")
+        garages = request.POST.get("Garages")
+        baths = request.POST.get("Baths")
         description = request.POST.get("Description")
-        Property.objects.filter(id = id, user=request.user).update(Last_name=last_name, First_name=first_name, Country=country, City=city, Address=address, Post_code = post_code, Price = price, Description=description)
+        Property.objects.filter(id = id, user=request.user).update(Last_name=last_name, First_name=first_name, Country=country,
+                                                                   City=city, Address=address, Post_Code = post_code,
+                                                                   Price = price, Description=description,
+                                                                   Area=area, Garages=garages, Baths=baths
+                                                                   )
         messages.success(request, "Your property's attributes have been updated!!")
         properties = Property.objects.filter(user=request.user).get(id=id)
         return render(request, 'editproper.html', {'properties': properties})
@@ -160,9 +177,12 @@ def description(request, pk):
     desc = Property.objects.get(pk=pk)
     address = Property.objects.values('Address').get(pk=pk)['Address']
     detail = desc.details
-    add1 = float(geoloc(address=address)[0])
-    add2 = float(geoloc(address=address)[1])
+    desc1 = Property.objects.select_related('user').values('user_id').get(pk=pk)['user_id']
+    desc2 = User.objects.values('email').get(id=desc1)['email']
+    add1 = geoloc(address=address)[0]
+    add2 = geoloc(address=address)[1]
     content= {
+        'desc2':desc2,
         'detail':detail,
         'add1': add1,
         'add2': add2,

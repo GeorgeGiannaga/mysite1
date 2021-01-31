@@ -27,7 +27,7 @@ table tr::before {
 </head>
 <body style="background-color:powderblue;">
         <center><div style="align-content: center">
-          <h3>These are your properties currently for sale!!!</h3>
+          <h3>Here you can update your property's attributes!!!</h3>
         </div>
         </center>
         <center>
@@ -42,8 +42,7 @@ table tr::before {
                         <th><label for = 'country' >Country</label></th>
                         <th><label for = 'city' >City</label></th>
                         <th><label for = 'address' >Address</label></th>
-                        <th><label for = 'price' >Price</label></th>
-                        <th><label for = 'description' >Description</label></th>
+                        <th><label for = 'post_code' >Post code</label></th>
                     </tr>
                         <tr>
                             <td><input type ="text" name = 'Last_name' value="{{properties.Last_name}}" id = 'Lastname'></td>
@@ -51,13 +50,28 @@ table tr::before {
                             <td><input type ="text" name = 'Country' value="{{properties.Country}}" id = 'country'></td>
                             <td><input type ="text" name = 'City' value="{{properties.City}}" id = 'city'></td>
                             <td><input type ="text" name = 'Address' value="{{properties.Address}}" id = 'address'></td>
+                            <td><input type ="text" name = 'Post_Code' value="{{properties.Post_Code}}" id = 'post_code'></td>
+                        </tr>
+</table>
+    <table class="table" border="1">
+                    <tr>
+                        <th><label for = 'price' >Price</label></th>
+                        <th><label for = 'area' >Area</label></th>
+                        <th><label for = 'garages' >Garages</label></th>
+                        <th><label for = 'baths' >Baths</label></th>
+                        <th><label for = 'description' >Description</label></th>
+                    </tr>
+                        <tr>
                             <td><input type ="number" name = 'Price' value="{{properties.Price}}" id = 'price'></td>
+                            <td><input type ="number" name = 'Area' value="{{properties.Area}}" id = 'area'></td>
+                            <td><input type ="number" name = 'Garages' value="{{properties.Garages}}" id = 'garages'></td>
+                            <td><input type ="number" name = 'Baths' value="{{properties.Baths}}" id = 'baths'></td>
                             <td><input type ="text" name = 'Description' value="{{properties.Description}}" id = 'description'></td>
                         </tr>
                 </table>
             <button type="submit">Update</button>
         </form>
-            <button onclick="location.href = '/properties';" class="cancelbtn" >Back</button>
+            <button onclick="location.href = '/properviews';" class="cancelbtn" >Back</button>
         </center>
 <div id="footer_content">
     <center>

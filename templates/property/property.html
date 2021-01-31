@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'proper.css' %}">
+    <link rel="stylesheet" href="{% static 'css/proper.css' %}">
     <title>Here you can add your property for sale</title>
   <style>
 
@@ -44,6 +44,15 @@
 
       <tr><td><label for="price"><b>Price</b></label>
       <input type="number" placeholder="Enter your property's price" name=Price id="price" required></td></tr>
+
+        <tr><td><label for="area"><b>Area</b></label>
+      <input type="number" placeholder="Enter your property's area" name=Area id="area" required></td></tr>
+
+        <tr><td><label for="garages"><b>Garages</b></label>
+      <input type="number" placeholder="Enter your property's garages" name=Garages id="garages" required></td></tr>
+
+        <tr><td><label for="baths"><b>Baths</b></label>
+      <input type="number" placeholder="Enter your property's baths" name=Baths id="baths" required></td></tr>
 
       <tr><td><label for="desc"><b>Description</b></label>
       <textarea type="text" name="Description" cols="40" rows="4" id = "desc" placeholder="Describe your property" ></textarea></td></tr>
