@@ -31,44 +31,33 @@ table tr::before {
         </div>
         </center>
         <center>
-        <form  method='POST'>
-
+        <form method='POST'>
         {% csrf_token %}
 
 <table class="table" border="1">
                     <tr>
-                        <th><label for = 'Lastname' >Last name</label></th>
-                        <th><label for = 'firstname' >First name</label></th>
-                        <th><label for = 'country' >Country</label></th>
-                        <th><label for = 'city' >City</label></th>
-                        <th><label for = 'address' >Address</label></th>
-                        <th><label for = 'post_code' >Post code</label></th>
+                        <th><label for = 'country'>Country</label></th>
+                        <th><label for = 'city'>City</label></th>
+                        <th><label for = 'address'>Address</label></th>
+                        <th><label for = 'post_code'>Post code</label></th>
+                        <th><label for = 'price'>Price</label></th>
+                        <th><label for = 'area'>Area</label></th>
+                        <th><label for = 'garages'>Garages</label></th>
+                        <th><label for = 'baths'>Baths</label></th>
+                        <th><label for = 'description'>Description</label></th>
                     </tr>
                         <tr>
-                            <td><input type ="text" name = 'Last_name' value="{{properties.Last_name}}" id = 'Lastname'></td>
-                            <td><input type ="text" name = 'First_name' value="{{properties.First_name}}" id = 'firstname'></td>
                             <td><input type ="text" name = 'Country' value="{{properties.Country}}" id = 'country'></td>
                             <td><input type ="text" name = 'City' value="{{properties.City}}" id = 'city'></td>
                             <td><input type ="text" name = 'Address' value="{{properties.Address}}" id = 'address'></td>
                             <td><input type ="text" name = 'Post_Code' value="{{properties.Post_Code}}" id = 'post_code'></td>
-                        </tr>
-</table>
-    <table class="table" border="1">
-                    <tr>
-                        <th><label for = 'price' >Price</label></th>
-                        <th><label for = 'area' >Area</label></th>
-                        <th><label for = 'garages' >Garages</label></th>
-                        <th><label for = 'baths' >Baths</label></th>
-                        <th><label for = 'description' >Description</label></th>
-                    </tr>
-                        <tr>
-                            <td><input type ="number" name = 'Price' value="{{properties.Price}}" id = 'price'></td>
-                            <td><input type ="number" name = 'Area' value="{{properties.Area}}" id = 'area'></td>
-                            <td><input type ="number" name = 'Garages' value="{{properties.Garages}}" id = 'garages'></td>
-                            <td><input type ="number" name = 'Baths' value="{{properties.Baths}}" id = 'baths'></td>
+                            <td><input type ="number" name = 'Price' value="{{properties.Price}}" id = 'price' min="0"></td>
+                            <td><input type ="number" name = 'Area' value="{{properties.Area}}" id = 'area' min="0"></td>
+                            <td><input type ="number" name = 'Garages' value="{{properties.Garages}}" id = 'garages' min="0"></td>
+                            <td><input type ="number" name = 'Baths' value="{{properties.Baths}}" id = 'baths' min="0"></td>
                             <td><input type ="text" name = 'Description' value="{{properties.Description}}" id = 'description'></td>
                         </tr>
-                </table>
+</table>
             <button type="submit">Update</button>
         </form>
             <button onclick="location.href = '/properviews';" class="cancelbtn" >Back</button>

@@ -24,7 +24,9 @@ urlpatterns = [
     path('description/<int:pk>', views.description, name = 'description'),
     path('details', views.detailsave, name='details'),
     path('viewdetails', views.ViewDetails, name='viewdetails'),
-    path('edetails/<int:id>', views.Edetails, name = 'edetails')
+    path('edetails/<int:id>', views.Edetails, name = 'edetails'),
+    path('message/send/', views.SendMessageView.as_view(), name="send_message"),
+    path('messages', views.Messages, name="messages")
 ]
 
 if settings.DEBUG:

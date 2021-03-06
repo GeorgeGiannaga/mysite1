@@ -6,73 +6,82 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'css/proper.css' %}">
     <title>Here you can add your property for sale</title>
-  <style>
-
-  </style>
 </head>
 <body style="background-color:powderblue;">
-<div class="container" style="text-align: center">
-      {% if messages %}
-      {% for message in messages %}
-        <h2 style = "color:blue">{{message}}</h2>
-      {% endfor %}
-      {% endif %}
-        </div>
-<form  method='POST' enctype="multipart/form-data">
-    {% csrf_token %}
-  <div class="container">
-    <h1>Property form</h1>
-    <p>Please fill in this form to add your house for sale.</p>
-    <table class="table" border="1" style="width: 70%">
-      <tr><td><label for="Lastname"><b>Last name</b></label>
-      <input type="text" placeholder="Enter your last name" name=Last_name id="Lastname" required></td></tr>
 
-      <tr><td><label for="Firstname"><b>First name</b></label>
-      <input type="text" placeholder="Enter your first name" name="First_name" id=Firstname required></td></tr>
-
-      <tr><td><label for="country"><b>Country</b></label>
-      <input type="text" placeholder="Enter your country's name" name=Country id="country" required></td></tr>
-
-      <tr><td><label for="city"><b>City</b></label>
-      <input type="text" placeholder="Enter your city's name" name=City id="city" required></td></tr>
-
-      <tr><td><label for="post_code"><b>Postal Code</b></label>
-      <input type="text" placeholder="Enter your property's post code" name=Post_Code id="post_code" required></td></tr>
-
-      <tr><td><label for="address"><b>Address</b></label>
-      <input type="text" placeholder="Enter your property's address" name=Address id="address" required></td></tr>
-
-      <tr><td><label for="price"><b>Price</b></label>
-      <input type="number" placeholder="Enter your property's price" name=Price id="price" required></td></tr>
-
-        <tr><td><label for="area"><b>Area</b></label>
-      <input type="number" placeholder="Enter your property's area" name=Area id="area" required></td></tr>
-
-        <tr><td><label for="garages"><b>Garages</b></label>
-      <input type="number" placeholder="Enter your property's garages" name=Garages id="garages" required></td></tr>
-
-        <tr><td><label for="baths"><b>Baths</b></label>
-      <input type="number" placeholder="Enter your property's baths" name=Baths id="baths" required></td></tr>
-
-      <tr><td><label for="desc"><b>Description</b></label>
-      <textarea type="text" name="Description" cols="40" rows="4" id = "desc" placeholder="Describe your property" ></textarea></td></tr>
-    </table>
-</div>
-    <div id="col-1">
-    <label for = 'image'><b>Upload a photo of your property</b></label>
-        <input type="file" id="image" name="Image">
-      <button type="submit" class="submit-row" style="width: 80%"> Submit</button>
-      <button onclick="location.href = '/';" class="cancelbtn" style="width: 80%">Back</button>
+<div class="wrapper" style="text-align: center;">
+    <div class="container">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1>
+                <i class="fas fa-shipping-fast"></i>
+                Add your property.
+            </h1>
+            <div class="name">
+                <div>
+                    <label for="country"><b>Country</b></label>
+                    <input type="text" placeholder="Enter your country's name" name=Country id="country" required>
+                </div>
+                <div>
+                    <label for="city"><b>City</b></label>
+                    <input type="text" placeholder="Enter your city's name" name=City id="city" required>
+                </div>
+            </div>
+            <div class="street">
+                <label for="post_code"><b>Postal Code</b></label>
+                <input type="text" placeholder="Enter your property's post code" name=Post_Code id="post_code" required>
+            </div>
+            <div class="address-info">
+                <div>
+                    <label for="address"><b>Address</b></label>
+                    <input type="text" placeholder="Enter your property's address" name=Address id="address" required>
+                </div>
+                <div>
+                    <label for="price"><b>Price</b></label>
+                    <input type="number" placeholder="Enter your property's price" name=Price id="price" min="0" required>
+                </div>
+                <div>
+                    <label for="area"><b>Area</b></label>
+                    <input type="number" placeholder="Enter your property's area" name=Area id="area" min="10" required>
+                </div>
+            </div>
+            <div class="cc-num">
+                <label for="garages"><b>Garages</b></label>
+                <input type="number" placeholder="Enter your property's garages" name=Garages id="garages" min="0" required>
+            </div>
+            <div class="cc-info">
+                <div>
+                    <label for="baths"><b>Baths</b></label>
+                    <input type="number" placeholder="Enter your property's baths" name=Baths id="baths" min="0" required>
+                </div>
+                <div>
+                    <label for="desc"><b>Description</b></label>
+                    <textarea type="text" name="Description" cols="40" rows="4" id = "desc" placeholder="Describe your property" ></textarea>
+                </div>
+                <div><label for = 'image'><b>Upload a photo of your property</b></label>
+                <input type="file" id="image" name="Image"></div>
+            </div>
+            <div class="btns">
+                <button type="submit" class="submit-row" > Submit</button>
+                <button onclick="location.href = '/';" class="cancelbtn" >Back</button>
+            </div>
+            <div>
+                {% if messages %}
+                  {% for message in messages %}
+                    <h2 style = "color:blue">{{message}}</h2>
+                  {% endfor %}
+                  {% endif %}
+            </div>
+        </form>
+            <div>
+            <button onclick="location.href = '/properviews';" type="submit">Modify your properties</button>
+        <button onclick="location.href = '/details';" type="submit" >Add details on your properties</button>
+        <form method="get" action="{% url 'pdfile'%}">
+         {% csrf_token %}
+        <button type="submit">Download your properties</button>
+        </form>
     </div>
-</form>
-<div id="col-2">
-  <button onclick="location.href = '/properviews';" type="submit" style="width: 100%; background-color: #4CAF50" >Modify your properties</button>
-<button onclick="location.href = '/details';" type="submit" style="width: 100%; background-color: #4CAF50" >Add details on your properties</button>
-  <form method="get" action="{% url 'pdfile'%}">
-    {% csrf_token %}
-   <button type="submit" style="width: 100%; background-color: #4CAF50" >Download your properties</button>
-  </form>
+</div>
 </div>
 </body>
-
 </html>

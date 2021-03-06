@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
-
+{% load templatetagname %}
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>EstateAgency Bootstrap Template - Index</title>
+  <title>George Corporation Agency</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -27,12 +27,6 @@
   <!-- Template Main CSS File -->
   <link href="/static/assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: EstateAgency - v2.2.1
-  * Template URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -51,7 +45,7 @@
       </button>
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
-          {% if request.user.is_authenticated %}
+          {% if request.user|has_group:"Owner" %}
           <li class="nav-item">
             <a class="nav-link active" href="/">Home</a>
           </li>
@@ -61,18 +55,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
           </li>
-          {% else %}
           <li class="nav-item">
-            <a class="nav-link active" href="/">Home</a>
+            <a class="nav-link" href="/messages">Messages</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Sign in</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
-          </li>
-          {% endif %}
-          {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Pages
@@ -81,6 +66,23 @@
               <a class="dropdown-item" href="/properviews">Update your properties</a>
               <a class="dropdown-item" href="/viewdetails">Update your property's details</a>
             </div>
+          </li>
+          {% elif request.user|has_group:"Buyer" %}
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/login">Sign in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
           </li>
           {% endif %}
         </ul>
@@ -268,15 +270,18 @@
               </div>
               <div class="col-md-6 col-lg-4">
                 <div class="property-agent">
-                  <h4 class="title-agent">{{desc.Last_name}} {{desc.First_name}}</h4>
+                  <h4 class="title-agent">{{desc2.last_name}} {{desc2.first_name}}</h4>
                   <ul class="list-unstyled">
+                    {% if Phone %}
                     <li class="d-flex justify-content-between">
-                      <strong>Phone:</strong>
-                      <span class="color-text-a">(222) 4568932</span>
+                      <strong>Phone number:</strong>
+                      <span class="color-text-a">+30 {{Phone.Phone_number}}</span>
                     </li>
+                    {% else %}
+                    {% endif %}
                     <li class="d-flex justify-content-between">
                       <strong>Email:</strong>
-                      <span class="color-text-a">{{desc2}}</span>
+                      <span class="color-text-a">{{desc2.email}}</span>
                     </li>
                   </ul>
                   <div class="socials-a">
@@ -310,35 +315,43 @@
                   </div>
                 </div>
               </div>
+              {% if user.is_authenticated %}
               <div class="col-md-12 col-lg-4">
+                <form action="{% url 'send_message' %}" method="post">
+                {% csrf_token %}
                 <div class="property-contact">
-                  <form class="form-a">
                     <div class="row">
                       <div class="col-md-12 mb-1">
                         <div class="form-group">
-                          <input type="text" class="form-control form-control-lg form-control-a" id="inputName" placeholder="Name *" required>
+                          <input type="hidden" class="form-control form-control-lg form-control-a" id="inputName" name="receiver_id" value="{{desc.user_id}}">
+                        </div>
+                        <div class="col-md-12 mb-1">
+                          <div class="form-group">
+                            {{user.first_name}} {{user.last_name}}
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-12 mb-1">
                         <div class="form-group">
-                          <input type="email" class="form-control form-control-lg form-control-a" id="inputEmail1" placeholder="Email *" required>
+                          <input type="text" class="form-control form-control-lg form-control-a" id="inputEmail1" value="{{request.user.email}}">
                         </div>
                       </div>
                       <div class="col-md-12 mb-1">
                         <div class="form-group">
-                          <textarea id="textMessage" class="form-control" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                          <textarea type="text" id="textMessage" class="form-control" placeholder="Your message" name="message" cols="45" rows="8" required></textarea>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <button type="submit" class="btn btn-a">Send Message</button>
                       </div>
                     </div>
-                  </form>
                 </div>
-              </div>
+                </form>
             </div>
-          </div>
+              {% endif %}
+         </div>
         </div>
+      </div>
       </div>
     </section><!-- End Property Single-->
 
@@ -360,10 +373,10 @@
             <div class="w-footer-a">
               <ul class="list-unstyled">
                 <li class="color-a">
-                  <span class="color-text-a">Phone .</span> +30 6985412477
+                  <span class="color-text-a">Phone:</span> +30 6985412477
                 </li>
                 <li class="color-a">
-                  <span class="color-text-a">Email .</span> Giannaga1990@gmail.com
+                  <span class="color-text-a">Email:</span> Giannaga1990@gmail.com
                 </li>
               </ul>
             </div>
@@ -488,11 +501,6 @@
             </p>
           </div>
           <div class="credits">
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
           </div>
         </div>
       </div>

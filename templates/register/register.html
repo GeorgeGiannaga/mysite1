@@ -1,48 +1,68 @@
-{% load static %}
-{% block title%}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Registration Form</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="container">
-    <h2 style="text-align: center" >
-        Please register first before you continue!!!
-    </h2>
-</div>
-{% endblock %}
+		<link rel="stylesheet" href="/static/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+		<link rel="stylesheet" href="/static/css/stat/style.css">
+	</head>
 
+	<body>
+	<div class="container" style="text-align: center">
+      {% if messages %}
+      {% for message in messages %}
+        <h2 style = "color:blue">{{message}}</h2>
+      {% endfor %}
+      {% endif %}
+        </div>
+		<div class="wrapper" style="background-image: url('/media/images/proper.jpg');">
+			<div class="inner">
+				<div class="image-holder">
+					<img src="/media/images/property_reg.jpg" alt="">
+				</div>
+				<form action="" method="post">
+					{% csrf_token %}
+					<h3>Registration Form</h3>
+					<div class="form-group">
+						<input type="text" placeholder="First Name" class="form-control" name="First_name" required>
+						<input type="text" placeholder="Last Name" class="form-control" name="Last_name" required>
+					</div>
+					<div class="form-wrapper">
+						<input type="text" placeholder="Username" class="form-control" name="Username"required>
+						<i class="zmdi zmdi-account"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="text" placeholder="Email Address" class="form-control" name="email" required>
+						<i class="zmdi zmdi-email"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="text" placeholder="Phone number" class="form-control" name="Phone_number">
+						<i class="zmdi zmdi-phone"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="password" placeholder="Password" class="form-control" name="Password1" required>
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="password" placeholder="Confirm Password" class="form-control" name="Password2" required>
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+					<div class="form-wrapper">
+						<label for="typ">Interest</label>
+						<select name="type" id="typ">
+							<option>Owner</option>
+							<option>Buyer</option>
+						</select>
+					</div>
+					<button>Register
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button><center><span class="psw"><a href="/login">Sign in</a></span></center>
+					<button onclick="location.href = '/';" class="cancelbtn" >Cancel</button>
+				</form>
+			</div>
+		</div>
 
-<form  method='POST' action="/">
-
-    {% csrf_token %}
-    <link rel="stylesheet" href="{% static 'css/top.css'%}">
-  <div class="container">
-
-    <h1>Register</h1>
-    <p>Please fill in this form to create an account.</p>
-    <hr>
-      <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name=Username id="username" required>
-
-    <label for="email"><b>Email</b></label>
-
-    <input type="text" placeholder="Enter Email" name="email" id=email required>
-    <label for="psw"><b>Password</b></label>
-
-    <input type="password" placeholder="Enter Password" name=Password1 id="psw" required>
-
-    <label for="psw-repeat"><b>Repeat Password</b></label>
-
-    <input type="password" placeholder="Repeat Password" name=Password2 id="psw-repeat" required>
-    <hr>
-    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-    <button type="submit" class="registerbtn" > Register</button>
-  </div>
-
-  <div class="container signin">
-    <p>Already have an account? <a href="/login">Sign in</a>.</p>
-  </div>
-    {% if messages %}
-    {% for message in messages %}
-    <h2 style = "color:blue">{{message}}</h2>
-    {% endfor %}
-    {% endif %}
-</form>
-
+	</body>
+</html>

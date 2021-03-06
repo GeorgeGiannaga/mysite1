@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 class Search(models.Model):
     search = models.CharField(max_length=500)
@@ -14,8 +15,6 @@ class Search(models.Model):
 
 class Property(models.Model):
     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
-    Last_name = models.CharField(max_length=50)
-    First_name =models.CharField(max_length=50)
     Country = models.CharField(max_length=50)
     City = models.CharField(max_length=50)
     Address = models.CharField(max_length=50)
@@ -29,7 +28,7 @@ class Property(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return self.Last_name, self.First_name, self.Country, self. City, self.Address, self.Description
+        return self.Country, self. City, self.Address, self.Description
 
     class Meta:
         db_table = "Properties"
@@ -41,7 +40,7 @@ class Details(models.Model):
     Furnised = models.BooleanField(default=False)
     View = models.CharField(max_length=30)
     Altitude = models.IntegerField(default=0)
-    Near_places = models.CharField(max_length=50)
+    Near_places = models.CharField(max_length=100)
     Balconies = models.IntegerField(default=0)
     Windows = models.IntegerField(default=0)
     Light = models.BooleanField(default=False)
@@ -49,3 +48,23 @@ class Details(models.Model):
 
     class Meta:
         db_table = "Details"
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='Profile')
+    Phone_number = models.CharField(max_length=10, null=True, blank=True)
+    objects = models.Manager()
+
+    class Meta:
+        db_table = "Profile"
+
+
+class Message(models.Model):
+     sender = models.ForeignKey(get_user_model(), related_name="sender", on_delete=models.CASCADE)
+     receiver = models.ForeignKey(get_user_model(), related_name="receiver", on_delete=models.CASCADE)
+     message = models.CharField(max_length=150)
+     timestamp = models.DateTimeField(auto_now_add=True)
+     unread = models.BooleanField(default = True)
+     objects = models.Manager()
+
+     class Meta:
+         db_table = "Messages"

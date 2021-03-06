@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load templatetagname %}
 
 <head>
   <meta charset="utf-8">
@@ -11,26 +12,25 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="static/assets/img/favicon.png" rel="icon">
-  <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/static/assets/img/favicon.png" rel="icon">
+  <link href="/static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
   <!-- Vendor SS Files -->
-  <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="static/assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="static/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-  <link href="static/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="static/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="static/assets/css/style.css" rel="stylesheet">
+  <link href="/static/assets/css/style.css" rel="stylesheet">
 
 </head>
 
 <body>
-
   <!-- ======= Property Search Section ======= -->
   <div class="click-closed"></div>
   <!--/ Form Search Star /-->
@@ -41,69 +41,56 @@
     <span class="close-box-collapse right-boxed ion-ios-close"></span>
     <div class="box-collapse-wrap form">
       <form action="{% url 'new_search' %}" method="post">
-        {% csrf_token %}
         <div class="row">
+        {% csrf_token %}
           <div class="col-md-12 mb-2">
             <div class="form-group">
-              <label for="Type">Keyword</label>
-              <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword" name="search">
-            </div>
-          </div>
-          <div class="col-md-6 mb-2">
-            <div class="form-group">
-              <label for="Type">Type</label>
-              <select class="form-control form-control-lg form-control-a" id="Type">
-                <option>All Type</option>
-                <option>For Rent</option>
-                <option>For Sale</option>
-                <option>Open House</option>
-              </select>
+              <label for="Keyword">Keyword</label>
+              <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword" name="search" id="Keyword" value="">
             </div>
           </div>
           <div class="col-md-6 mb-2">
             <div class="form-group">
               <label for="city">City</label>
-              <select class="form-control form-control-lg form-control-a" id="city">
-                <option>All City</option>
-                <option>Athens</option>
-                <option>Thessaloniki</option>
-                <option>Berlin</option>
-                <option>London</option>
+              <select class="form-control form-control-lg form-control-a" id="city" name="city">
+                <option>None</option>
+                {% for proper in propers_city %}
+                <option>{{proper.City}}</option>
+                {% endfor %}
               </select>
             </div>
           </div>
           <div class="col-md-6 mb-2">
             <div class="form-group">
               <label for="garages">Garages</label>
-              <select class="form-control form-control-lg form-control-a" id="garages">
-                <option>Any</option>
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
-                <option>04</option>
+              <select class="form-control form-control-lg form-control-a" id="garages" name="garages">
+                <option>None</option>
+                {% for proper in propers_garages %}
+                <option>{{proper.Garages}}</option>
+                {% endfor %}
               </select>
             </div>
           </div>
           <div class="col-md-6 mb-2">
             <div class="form-group">
               <label for="bathrooms">Bathrooms</label>
-              <select class="form-control form-control-lg form-control-a" id="bathrooms">
-                <option>Any</option>
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
+              <select class="form-control form-control-lg form-control-a" id="bathrooms" name="baths">
+                <option>None</option>
+                {% for proper in propers_baths %}
+                <option>{{proper.Baths}}</option>
+                {% endfor %}
               </select>
             </div>
           </div>
           <div class="col-md-6 mb-2">
             <div class="form-group">
-              <label for="price">Min Price</label>
-              <select class="form-control form-control-lg form-control-a" id="price">
-                <option>Unlimited</option>
-                <option>$50,000</option>
-                <option>$100,000</option>
-                <option>$150,000</option>
-                <option>$200,000</option>
+              <label for="price">Max Price</label>
+              <select class="form-control form-control-lg form-control-a" id="price" name="max_price">
+                <option value="None">Unlimited</option>
+                <option value="50000">50,000</option>€
+                <option value="100000">100,000</option>€
+                <option value="150000">150,000</option>€
+                <option value="200000">200,000</option>€
               </select>
             </div>
           </div>
@@ -132,7 +119,7 @@
       </button>
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
-          {% if request.user.is_authenticated %}
+          {% if request.user|has_group:"Owner" %}
           <li class="nav-item">
             <a class="nav-link active" href="/">Home</a>
           </li>
@@ -142,18 +129,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
           </li>
-          {% else %}
           <li class="nav-item">
-            <a class="nav-link active" href="/">Home</a>
+            <a class="nav-link" href="/messages">Messages</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Sign in</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
-          </li>
-          {% endif %}
-          {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Pages
@@ -162,6 +140,23 @@
               <a class="dropdown-item" href="/properviews">Update your properties</a>
               <a class="dropdown-item" href="/viewdetails">Update your property's details</a>
             </div>
+          </li>
+          {% elif request.user|has_group:"Buyer" %}
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/login">Sign in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
           </li>
           {% endif %}
         </ul>
@@ -199,6 +194,13 @@
 
     <!-- ======= Property Grid ======= -->
     {% block content %}
+    <center>
+        {% if messages %}
+        {% for message in messages %}
+            <h2 style = "color:blue">{{message}}</h2>
+        {% endfor %}
+        {% endif %}
+        </center>
     <section class="property-grid grid">
       <div class="container">
         <div class="row">
@@ -375,15 +377,15 @@
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-  <script src="static/assets/vendor/jquery/jquery.min.js"></script>
-  <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="static/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="static/assets/vendor/php-email-form/validate.js"></script>
-  <script src="static/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  <script src="static/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
+  <script src="/static/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="/static/assets/vendor/php-email-form/validate.js"></script>
+  <script src="/static/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="/static/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="static/assets/js/main.js"></script>
+  <script src="/static/assets/js/main.js"></script>
 
 </body>
 
