@@ -16,7 +16,6 @@
         table {
   counter-reset: rowNumber;
 }
-
 table tr::before {
   display: table-cell;
   counter-increment: rowNumber;
@@ -26,32 +25,32 @@ table tr::before {
 }</style>
 
 </head>
-<body>
+<body style="background-color:powderblue;">
 
         <center><div style="align-content: center">
           <h3>These are your properties currently for sale!!!</h3>
         </div>
         </center>
         <center>
-
-
 <table class="table" border="1">
                     <tr>
-                        <th>Last name</th>
-                        <th>First name</th>
                         <th>Country</th>
                         <th>City</th>
                         <th>Address</th>
-                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Area</th>
+                        <th>Garages</th>
+                        <th>Baths</th>
                     </tr>
                     {% for property in properties %}
                         <tr>
-                            <td>{{ property.Last_name }}</td>
-                            <td>{{ property.First_name }}</td>
                             <td>{{ property.Country }}</td>
                             <td>{{ property.City }}</td>
                             <td>{{ property.Address }}</td>
-                            <td>{{ property.Description }}</td>
+                            <td>{{ property.Price }}</td>
+                            <td>{{property.Area}}</td>
+                            <td>{{property.Garages}}</td>
+                            <td>{{property.Baths}}</td>
                             <td>
                                 <a type = 'button' href = 'editproper/{{property.id}}'>Edit</a>
                             </td>
@@ -62,7 +61,6 @@ table tr::before {
                         </tr>
                     {% endfor %}
             </table>
-            </form>
             <button onclick="location.href = '/properties';" class="cancelbtn" >Cancel</button>
         </center>
 <div id="footer_content">

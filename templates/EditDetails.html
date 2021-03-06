@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Details</title>
+
+</head>
+<body style="background-color:powderblue;">
+<center>
+
+    <form method="POST">
+        {% csrf_token %}
+<table class="table" border="1">
+                    <tr>
+                        <th><label for="Floors">Floors</label></th>
+                        <th><label for="Garden">Garden</label></th>
+                        <th><label for="Furniture">Furnised</label></th>
+                        <th><label for="view">View</label></th>
+                        <th><label for="alt">Altitude</label></th>
+                        <th><label for="Nearpl">Near places</label></th>
+                        <th><label for="balc">Number of Balconies</label></th>
+                        <th><label for="wind">Number of Windows</label></th>
+                        <th><label for="Li">Light</label></th>
+                    </tr>
+                        <tr>
+                            <td><input type="number" name=Floors value="{{details.Floors}}" id="Floors" min = "0"></td>
+                            <td><input type="checkbox" name="Garden" value="1" id="Garden" {% if details.Garden %} checked {% endif %}></td>
+                            <td><input type="checkbox" name=Furnised value="1" id="Furniture" {% if details.Furnised %} checked {% endif %}></td>
+                            <td><input type="text" name="View" value="{{details.View}}" id="view"></td>
+                            <td><input type="number" name="Altitude" value="{{details.Altitude}}" id="alt" min = "0"></td>
+                            <td><input type="text" name="Near_places" value="{{details.Near_places}}" id = "Nearpl" ></td>
+                            <td><input type="number" name="Balconies" value="{{details.Balconies}}" id="balc" min = "0"></td>
+                            <td><input type="number" name="Windows" value="{{details.Windows}}" id="wind" min = "0"></td>
+                            <td><input type="checkbox" name="Light" value="1" id="Li" {% if details.Light %} checked {% endif %}></td>
+                        </tr>
+                </table>
+            <button type="submit">Update</button>
+        </form>
+            <button onclick="location.href = '/viewdetails';" class="cancelbtn">Back</button>
+        </center>
+<div id="footer_content">
+    <center>
+     {% if messages %}
+      {% for message in messages %}
+        <h2 style = "color:blue">{{message}}</h2>
+      {% endfor %}
+      {% endif %}
+    </center>
+</div>
+</body>
+</html>

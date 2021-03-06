@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Messages</title>
+        <style>
+        th,td{
+        padding:3px;
+        }
+        th{
+        background-color:black;
+        color:white;
+        }
+        table {
+  counter-reset: rowNumber;
+}
+table tr::before {
+  display: table-cell;
+  counter-increment: rowNumber;
+  content: counter(rowNumber) ".";
+  padding-right: 0.3em;
+  text-align: right;
+}</style>
+</head>
+<body>
+<center>
+        <h2 id="heading">Messages</h2>
+            <table class="table" border="1">
+                <tr>
+                    <th>Name</th>
+                    <th>Phone number</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                </tr>
+
+                    {% for message in messages  %}
+                <tr>
+                    <td>{{message.sender.last_name}} {{message.sender.first_name}}</td>
+                    <td>{{message.sender.Profile.Phone_number}}</td>
+                    <td>{{message.sender.email}}</td>
+                    <td>{{message.message}} </td>
+                    {% endfor %}
+                </tr>
+            </table>
+    <button onclick="location.href = '/';" class="cancelbtn" >Back</button>
+</center>
+</body>
+</html>
