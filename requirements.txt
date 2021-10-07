@@ -1,7 +1,6 @@
 arabic-reshaper==2.1.1
 asgiref==3.3.1
 Django==3.1.4
-django-javascript-settings==1.1.2
 future==0.18.2
 geographiclib==1.50
 geopy==2.0.0
@@ -9,14 +8,12 @@ html5lib==1.1
 mysql==0.0.2
 mysqlclient @ file:///C:/Users/Neverazor/Desktop/askiseis%20python/mysite/mysqlclient-1.4.6-cp38-cp38-win32.whl
 numpy==1.19.4
-Pillow==8.0.1
 PyMySQL==0.10.1
 PyPDF2==1.26.0
 python-bidi==0.4.2
 pytz==2020.4
 reportlab==3.5.56
 six==1.15.0
-sqlparse==0.4.1
 timezonefinder==4.5.0
 webencodings==0.5.1
 xhtml2pdf==0.2.5
