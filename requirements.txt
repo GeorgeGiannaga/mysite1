@@ -1,6 +1,6 @@
 arabic-reshaper==2.1.1
 asgiref==3.3.1
-Django==3.1.4
+Django==3.1.13
 future==0.18.2
 geographiclib==1.50
 geopy==2.0.0
